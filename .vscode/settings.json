@@ -3,5 +3,5 @@
   "terminal.integrated.env.linux": {
     "PATH": "/home/gmbo/.platformio/penv/bin:/usr/lib/nodejs/node-v8.6.0/bin:/usr/lib/nodejs/node-v8.6.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
   },
-  "python.pythonPath": "${workspaceRoot}/pylearn/bin/python"
+  "python.pythonPath": "/usr/bin/python3"
 }

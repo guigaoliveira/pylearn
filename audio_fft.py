@@ -1,11 +1,11 @@
-''' from pylab import *
+'''from pylab import *
 from scipy.io import wavfile
 freq, data = wavfile.read('som-flauta-16-bits.wav')
 x = np.array([1, 2, 3, 6])
 data = data / (2.**15)
 rms = np.mean(list(map(lambda x: x**2, data)))**.5
-print(data, 1e-05)
-data = list(filter(lambda x: !(i > 0.001 and x < 0.001), data))
+print(len(data))
+#data = list(filter(lambda x: !(i > 0.001 and x < 0.001), data))
 timeArray = arange(0, len(data), 1)
 timeArray = timeArray / freq
 rmsArray = np.repeat(rms, len(data))
@@ -20,20 +20,19 @@ from pylab import *
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 from scipy.io import wavfile  # get the api
-freq, snd = wavfile.read('test.wav')  # load the data
-snd = snd / (2.**15)  # this is 8-bit track, b is now normalized on [-1,1)
-c = fft(snd)  # calculate fourier transform (complex numbers list)
-d = int(len(c) /
-        2) - 1  # you only need half of the fft list (real signal symmetry)
-timeArray = arange(0, d, 1)
-timeArray = timeArray / freq
-#plt.plot(timeArray, imag(c[0:d]), 'g')
-#plt.plot(timeArray, real(c[0:d]), 'b')
-k = arange(d)
-T = len(k) / freq 
-print(k, T, k / T)
-frqLabel = k / T
-plt.plot(frqLabel, abs(c[0:d]), 'r')
+
+freq, snd = wavfile.read('som-flauta-16-bits.wav')  # load the data
+Fs = freq 
+n = len(snd) # length of the signal
+k = np.arange(n)
+T = n/Fs
+frq = k/T # two sides frequency range
+frq = frq[0:int(n/2)] # one side frequency range
+
+Y = np.fft.fft(snd)/n # fft computing and normalization
+Y = Y[0:int(n/2)]
+
+plt.plot(frq, abs(Y), 'r')
 plt.show()
 ''' from pylab import *
 from scipy.io import wavfile
