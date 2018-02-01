@@ -28,9 +28,13 @@ k = np.arange(n)
 T = n/Fs
 frq = k/T # two sides frequency range
 frq = frq[0:int(n/2)] # one side frequency range
-
-Y = np.fft.fft(snd)/n # fft computing and normalization
+fft = np.fft.rfft(snd)
+Y = fft/n # fft computing and normalization
 Y = Y[0:int(n/2)]
+
+inverse = np.fft.irfft(fft)
+
+wavfile.write('inverse_flauta.wav', freq, inverse.real.astype('int16'))
 
 plt.plot(frq, abs(Y), 'r')
 plt.show()
